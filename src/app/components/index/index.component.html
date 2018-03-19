@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="text-center">
+    <button id="btn-add" class="btn btn-success" data-toggle="modal" data-target="#addUserModal">Add user</button>
+  </div>
+  <div class="text-center" *ngIf="users.length === 0">
+    <p>There are no users!</p>
+  </div>
+  <table class="table" *ngIf="users.length > 0">
+    <tr>
+      <th>Name</th>
+      <th>Last name</th>
+      <th>Full name</th>
+      <th>Age</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let user of users">
+      <td>{{ user.name }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>{{ user | fullName }}</td>
+      <td>{{ user.age }}</td>
+      <td>
+        <button class="btn btn-danger" (click)="delete(user)">Delete</button>
+        <button class="btn btn-info" (click)="update(user)" data-toggle="modal" data-target="#updateUserModal">Update</button>
+      </td>
+    </tr>
+  </table>      
+</div>
+  
+<app-add-user-modal (onAddUser)="onAddUser($event)"></app-add-user-modal>
+<app-update-user-modal [user]="userToUpdate" (onUpdateUser)="onUpdateUser($event)"></app-update-user-modal>
